@@ -138,13 +138,15 @@ var CanvasFreeDrawing = /** @class */ (function () {
     CanvasFreeDrawing.prototype.mouseDown = function (event) {
         if (event.button !== 0)
             return;
-        var x = event.pageX - this.canvas.offsetLeft;
-        var y = event.pageY - this.canvas.offsetTop;
+        var rect = this.canvas.getBoundingClientRect();
+        var x = (event.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width;
+        var y = (event.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height;
         this.drawPoint(x, y);
     };
     CanvasFreeDrawing.prototype.mouseMove = function (event) {
-        var x = event.pageX - this.canvas.offsetLeft;
-        var y = event.pageY - this.canvas.offsetTop;
+        var rect = this.canvas.getBoundingClientRect();
+        var x = (event.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width;
+        var y = (event.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height;
         this.drawLine(x, y, event);
     };
     CanvasFreeDrawing.prototype.touchStart = function (event) {

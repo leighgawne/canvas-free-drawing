@@ -248,14 +248,16 @@ export default class CanvasFreeDrawing {
 
   mouseDown(event: MouseEvent): void {
     if (event.button !== 0) return;
-    const x = event.pageX - this.canvas.offsetLeft;
-    const y = event.pageY - this.canvas.offsetTop;
+    let rect = this.canvas.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width; 
+    const y = (event.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height; 
     this.drawPoint(x, y);
   }
 
   mouseMove(event: MouseEvent): void {
-    const x = event.pageX - this.canvas.offsetLeft;
-    const y = event.pageY - this.canvas.offsetTop;
+    let rect = this.canvas.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width;
+    const y = (event.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height;
     this.drawLine(x, y, event);
   }
 
